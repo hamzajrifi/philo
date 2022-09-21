@@ -2,18 +2,18 @@
 
 void	*philo(void *arg)
 {
-	t_param	*trd;
+	t_philo	*trd;
 	int		n_philo;
 
-	trd = (t_param *)arg;
-	pthread_mutex_lock(&trd->lock[trd->t_philo->index]);
+	trd = (t_philo *)arg;
+	printf("here = %d \n", trd->nbr_philo);
+	pthread_mutex_lock(&trd->lock);
 
 	// trd->t_philo->index++;
 	usleep(500);
-	trd->t_philo->nbr_philo = trd->t_philo->index ;
-	printf("philo : %d \n",  trd->t_philo->nbr_philo);
-	printf("index = %d \n", trd->t_philo->index);
-	pthread_mutex_unlock(&trd->lock[trd->t_philo->index]);
+	printf("///// --- philo : %d \t",  trd->nbr_philo);
+	printf("index = %d ---\\\\\\\\ \n", trd->index);
+	pthread_mutex_unlock(&trd->lock);
 
 	return (NULL);
 }

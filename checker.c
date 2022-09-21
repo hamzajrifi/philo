@@ -1,6 +1,6 @@
 #include "philo.h"
 
-int check_arg(char **arg, t_philo *stc)
+int check_arg(char **arg, t_param *stc)
 {
 	int	i;
 	int	nbr;
@@ -13,7 +13,7 @@ int check_arg(char **arg, t_philo *stc)
 			return (1);
 		if (i == 1)
 		{
-			stc->nbr_philo = nbr;
+			stc->all_nbr_philo = nbr;
 			stc->nbr_mutex = nbr;
 			stc->nbr_fork = nbr;
 		}

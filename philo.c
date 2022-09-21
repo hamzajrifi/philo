@@ -6,14 +6,14 @@ void	*philo(void *arg)
 	int		n_philo;
 
 	trd = (t_param *)arg;
-	pthread_mutex_lock(&trd->lock);
+	pthread_mutex_lock(&trd->lock[trd->t_philo->index]);
 
-	trd->t_philo->index++;
-
-	n_philo = trd->t_philo->nbr_philo;
-	printf("philo : %d \n", n_philo);
+	// trd->t_philo->index++;
+	usleep(500);
+	trd->t_philo->nbr_philo = trd->t_philo->index ;
+	printf("philo : %d \n",  trd->t_philo->nbr_philo);
 	printf("index = %d \n", trd->t_philo->index);
-	pthread_mutex_unlock(&trd->lock);
+	pthread_mutex_unlock(&trd->lock[trd->t_philo->index]);
 
 	return (NULL);
 }

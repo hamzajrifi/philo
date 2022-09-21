@@ -23,7 +23,7 @@ typedef struct s_philo
 typedef struct s_param
 {
     pthread_t		*t_thread;
-    pthread_mutex_t	lock;
+    pthread_mutex_t	*lock;
     t_philo         *t_philo;
     int             r_fork;
 } t_param;

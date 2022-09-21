@@ -1,9 +1,8 @@
 #include "philo.h"
 
-int check_arg(char **arg)
+int check_arg(char **arg, t_philo *stc)
 {
 	int	i;
-	int 	tab[4];
 	int	nbr;
 
 	i = 1;
@@ -12,8 +11,20 @@ int check_arg(char **arg)
 		nbr = ft_atoi(arg[i]);
 		if (nbr < 0)
 			return (1);
-		tab[i - 1] = nbr;  
-		printf("numbre [%d] : %d\n", i - 1, tab[i - 1]);
+		if (i == 1)
+		{
+			stc->nbr_philo = nbr;
+			stc->nbr_mutex = nbr;
+			stc->nbr_fork = nbr;
+		}
+		else if (i == 2)
+			stc->t_die = nbr;
+		else if (i == 3)
+			stc->t_eat = nbr;
+		else if (i == 4)
+			stc->t_sleep = nbr;
+		else if (i == 5)
+			stc->nbr_db_eat = nbr;
 		i++;
 	}
 	return (0);

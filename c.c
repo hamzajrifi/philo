@@ -3,21 +3,30 @@
 #include <unistd.h> //Header file for sleep(). man 3 sleep for details.
 #include <pthread.h>
 
-// A normal C function that is executed as a thread
-// when its name is specified in pthread_create()
-void *myturn(void *vargp)
+struct t_list
 {
-	while (1)
+	int				*nbr;
+	pthread_t		thread_id;
+	pthread_mutex_t	lock;
+};
+
+void *myturn(void *arg)
+{
+	
+	for (size_t i = 0; i < 20; i++)
 	{
 		sleep(1);
-		printf("My Turn \n");
+		// pthread_mutex_lock();
+		printf("My Turn ptr =  \n");
+
+		// pthread_mutex_unlock();
 	}
 	return NULL;
 }
 
-void *yourturn(void *vargp)
+void *yourturn()
 {
-	while (1)
+	for (int i = 1; i < 4; i++)
 	{
 		sleep(1);
 		printf("Your Turn \n");
@@ -26,10 +35,12 @@ void *yourturn(void *vargp)
 }
 int main()
 {
-	pthread_t thread_id;
-	pthread_create(&thread_id, NULL, myThreadFun, NULL);
+	struct t_list lst;
+
+	pthread_create(&lst.thread_id, NULL, myturn, NULL);
+	// myturn(lst.nbr);
 	yourturn();
-	// pthread_join(thread_id, NULL);
-	printf("end Thread\n");
+	pthread_join(lst.thread_id, (void *)&lst.nbr);
+	printf("end Thread && nbr =\n");
 	exit(0);
 }

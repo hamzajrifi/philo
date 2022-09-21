@@ -1,6 +1,6 @@
 NAME = prg.a
 
-CC = gcc
+CC = gcc 
 
 HEADER = philo.h
 
@@ -15,4 +15,9 @@ all :
 	$(CC) $(C_FILES) main.c -o  jrifi 
 
 clean :
-	rm -f *.o jrifi 
+	rm -f *.o 
+
+fclean : clean 
+	rm -f jrifi
+
+re : fclean all

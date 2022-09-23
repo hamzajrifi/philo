@@ -8,12 +8,15 @@ void	creat_philo_threads(t_param *trd)
 	i = 0;
 	n_philo = trd->all_nbr_philo;
 	trd->db_philo = malloc(sizeof(t_philo) * n_philo);
+	trd->i = 0;
+	insialise_forks(trd);
 	while (n_philo > i)
 	{
-		pthread_mutex_init(&trd->db_philo[i].lock, NULL);
+		trd->db_philo[i].nbr_philo = i;
+		pthread_mutex_init(trd->db_philo[i].m_fork, NULL);
+		trd->i = i;
 		pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]);
 		i++;
-		trd->db_philo[i].nbr_philo = i;
 	}
 	i = 0;
 	while (n_philo > i)

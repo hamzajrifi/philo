@@ -1,6 +1,6 @@
 NAME = prg.a
 
-CC = gcc 
+CC = gcc -fsanitize=thread -g3
 
 HEADER = philo.h
 

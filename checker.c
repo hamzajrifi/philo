@@ -1,5 +1,18 @@
 #include "philo.h"
 
+void	insialise_forks(t_param *ph_stc)
+{
+	int	i;
+
+	i = 0;
+	while (i < ph_stc->all_nbr_philo)
+	{
+		ph_stc->db_philo[i].r_fork = i;
+		ph_stc->db_philo[i].l_fork = ((i + 1) % ph_stc->all_nbr_philo);
+		i++;
+	}
+}
+
 int check_arg(char **arg, t_param *stc)
 {
 	int	i;

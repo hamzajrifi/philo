@@ -13,9 +13,10 @@ void	creat_philo_threads(t_param *trd)
 	while (n_philo > i)
 	{
 		trd->db_philo[i].nbr_philo = i;
-		pthread_mutex_init(trd->db_philo[i].m_fork, NULL);
-		trd->i = i;
+		trd->db_philo[i].tprm = trd;
+		trd->db_philo[i].index= 0;
 		pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]);
+		usleep(50);
 		i++;
 	}
 	i = 0;

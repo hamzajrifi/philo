@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 //==================== struct ========================
+struct s_param;
 
 typedef struct s_philo
 {
@@ -16,21 +17,22 @@ typedef struct s_philo
 	int				l_fork;
 	int				ph_time;
 	int				nbr_philo;
-	pthread_mutex_t	*m_fork;
+	struct s_param			*tprm;
 }t_philo;
 
 typedef struct s_param
 {
-	int		all_nbr_philo;
-	int		nbr_mutex;
-	int		nbr_fork;
-	int		nbr_db_eat;
-	int		nbr_meals;
-	int		t_die;
-	int		t_eat;
-	int		t_sleep;
-	int		i;
-	t_philo	*db_philo;
+	int				all_nbr_philo;
+	int				nbr_mutex;
+	int				nbr_fork;
+	int				nbr_db_eat;
+	int				nbr_meals;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				i;
+	pthread_mutex_t	*fork;
+	t_philo			*db_philo;
 } t_param;
 
 //=============  philo.c ===========================

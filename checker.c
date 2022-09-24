@@ -5,8 +5,10 @@ void	insialise_forks(t_param *ph_stc)
 	int	i;
 
 	i = 0;
+	ph_stc->fork = malloc(sizeof(pthread_mutex_t) * ph_stc->all_nbr_philo);
 	while (i < ph_stc->all_nbr_philo)
 	{
+		pthread_mutex_init(&ph_stc->fork[i], NULL);
 		ph_stc->db_philo[i].r_fork = i;
 		ph_stc->db_philo[i].l_fork = ((i + 1) % ph_stc->all_nbr_philo);
 		i++;

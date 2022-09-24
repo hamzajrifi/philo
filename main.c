@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/24 18:14:07 by hjrifi            #+#    #+#             */
+/*   Updated: 2022/09/24 18:34:49 by hjrifi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	creat_philo_threads(t_param *trd)
@@ -16,7 +28,7 @@ void	creat_philo_threads(t_param *trd)
 		trd->db_philo[i].tprm = trd;
 		trd->db_philo[i].index= 0;
 		pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]);
-		usleep(50);
+		usleep(100);
 		i++;
 	}
 	i = 0;
@@ -31,7 +43,7 @@ int main(int ac, char **arg)
 {
 	t_param stc;
 
-	if (ac < 4 || ac > 5 || check_arg(arg, &stc))	
+	if (ac < 5 || ac > 6 || check_arg(arg, &stc))	
 		printf("Error\n");
 	else
 		creat_philo_threads(&stc);

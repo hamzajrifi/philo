@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:30 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/24 20:29:04 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:40:10 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ struct s_param;
 typedef struct s_philo
 {
 	pthread_t		t_thread;
-	int				tm_taken;
+	int				end_tm;
 	int				index;
 	int				r_fork;
 	int				l_fork;
-	int				ph_time;
+	int				start_tm;
 	int				nbr_philo;
 	struct s_param			*tprm;
 }t_philo;
@@ -59,6 +59,9 @@ void	*philo(void  *arg);
 int		check_arg(char **arg, t_param *stc);
 void	insialise_forks(t_param *ph_stc);
 int		get_now_time_on_ms(t_philo *trd);
+int		get_working_time(int start, int end);
+
+
 //=============  utils_function.c ===========================
 int     ft_atoi(const char *str);
 

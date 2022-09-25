@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:13:58 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/24 20:51:15 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:48:20 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int		get_now_time_on_ms(t_philo *trd)
 {
-	int	time_ms;
-	static int	start;
-
-	start = trd->tprm->start_time;
 	gettimeofday(&trd->tprm->tv, NULL);
-	if(((trd->tprm->tv.tv_usec - trd->tprm->start_time) / 1000) < 0)
-		trd->tprm->start_time = 0; // i have data race here .....
-	return (trd->tprm->tv.tv_usec - trd->tprm->start_time) / 1000;
+	if (trd->tprm->tv.tv_usec - trd->tprm->start_time < 0)
+			return((trd->tprm->start_time - trd->tprm->tv.tv_usec) / 1000);
+	return((trd->tprm->tv.tv_usec - trd->tprm->start_time) / 1000);
+}
+
+int get_working_time(int start, int end)
+{
+	return ((end - start) +(end - start));
 }
 
 void	insialise_forks(t_param *ph_stc)
@@ -38,7 +39,8 @@ void	insialise_forks(t_param *ph_stc)
 		i++;
 	}
 	gettimeofday(&ph_stc->tv, NULL);
-	ph_stc->start_time = ph_stc->tv.tv_usec; 
+	ph_stc->start_time = ph_stc->tv.tv_usec;
+	ph_stc->tm_now = ph_stc->tv.tv_usec;
 }
 
 int check_arg(char **arg, t_param *stc)

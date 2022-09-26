@@ -6,11 +6,32 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:07 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/24 18:34:49 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/26 21:59:48 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	philo_checker(t_param *trd)
+{
+	int	i;
+
+	while (1)
+	{
+		i = 0;
+		while (i < trd->all_nbr_philo)
+		{
+			if (get_now_time_on_ms(trd->tv) - trd->db_philo[i].end_tm > trd->t_die)
+			{
+				printf("[%d ms] philo [%d] died \n", get_time_consumed(&trd->db_philo[i]), trd->db_philo[i].nbr_philo);
+				exit(0);
+			}
+			// usleep(100);
+			i++;
+		}
+		
+	}
+}
 
 void	creat_philo_threads(t_param *trd)
 {
@@ -27,17 +48,19 @@ void	creat_philo_threads(t_param *trd)
 		trd->db_philo[i].nbr_philo = i;
 		trd->db_philo[i].tprm = trd;
 		trd->db_philo[i].index= 0;
+		trd->db_philo[i].end_tm = get_now_time_on_ms(trd->tv);// 0 // 1
 		pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]);
-		trd->db_philo[i].end_tm = get_now_time_on_ms(trd->tv); 
-		usleep(100);
+		usleep(50);
 		i++;
 	}
+	philo_checker(trd);
 	i = 0;
-	while (n_philo > i)
-	{
-		pthread_join(trd->db_philo[i].t_thread, NULL);
-		i++;
-	}
+	
+	// while (n_philo > i)
+	// {
+		// pthread_join(trd->db_philo[i].t_thread, NULL);
+		// i++;
+	// }
 }
 
 int main(int ac, char **arg)

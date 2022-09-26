@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjrifi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:48 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/24 18:14:49 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/26 21:54:03 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	ft_atoi(const char *str)
 void	ft_sleep(t_param *tprm, int t_sleep)
 {
 	int i;
+	
 	i = get_now_time_on_ms(tprm->tv);
-	while (!tprm->end_programme && (get_now_time_on_ms(tprm->tv) - tprm->i < t_sleep))
-		usleep(50);
+	while (!tprm->end_programme && (get_now_time_on_ms(tprm->tv) - i <= t_sleep))
+	{
+		usleep(5);
+	}
 }

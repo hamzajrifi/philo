@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:30 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/25 14:40:10 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/26 16:14:08 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_param
 	int				start_time;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
+	pthread_mutex_t	lock;
 	t_philo			*db_philo;
 } t_param;
 

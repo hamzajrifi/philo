@@ -12,18 +12,18 @@
 
 #include "philo.h"
 
-int		get_now_time_on_ms(t_philo *trd)
+int		get_now_time_on_ms(struct timeval tv)
 {
-	gettimeofday(&trd->tprm->tv, NULL);
-	if (trd->tprm->tv.tv_usec - trd->tprm->start_time < 0)
-			return((trd->tprm->start_time - trd->tprm->tv.tv_usec) / 1000);
-	return((trd->tprm->tv.tv_usec - trd->tprm->start_time) / 1000);
+	gettimeofday(&tv, NULL);
+	return(tv.tv_sec * 1000 + tv.tv_usec / 1000 );
 }
 
-int get_working_time(int start, int end)
+int		get_time_consumed(t_philo *trd)
 {
-	return ((end - start) +(end - start));
+	gettimeofday(&trd->tprm->tv, NULL);
+	return (trd->tprm->tv.tv_sec * 1000 + trd->tprm->tv.tv_usec / 1000 - trd->tprm->start_time);
 }
+
 
 void	insialise_forks(t_param *ph_stc)
 {
@@ -38,9 +38,7 @@ void	insialise_forks(t_param *ph_stc)
 		ph_stc->db_philo[i].l_fork = ((i + 1) % ph_stc->all_nbr_philo);
 		i++;
 	}
-	gettimeofday(&ph_stc->tv, NULL);
-	ph_stc->start_time = ph_stc->tv.tv_usec;
-	ph_stc->tm_now = ph_stc->tv.tv_usec;
+	ph_stc->start_time = get_now_time_on_ms(ph_stc->tv);
 }
 
 int check_arg(char **arg, t_param *stc)

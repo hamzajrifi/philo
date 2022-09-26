@@ -28,6 +28,7 @@ void	creat_philo_threads(t_param *trd)
 		trd->db_philo[i].tprm = trd;
 		trd->db_philo[i].index= 0;
 		pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]);
+		trd->db_philo[i].end_tm = get_now_time_on_ms(trd->tv); 
 		usleep(100);
 		i++;
 	}

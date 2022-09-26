@@ -12,6 +12,11 @@
 
 #include "philo.h"
 
+void	my_print()
+{
+
+}
+
 void	*philo(void *arg)
 {
 	t_philo	*trd;
@@ -24,20 +29,15 @@ void	*philo(void *arg)
 	{
 		
 		pthread_mutex_lock(&trd->tprm->fork[trd->r_fork]);
-		time_ms = get_now_time_on_ms(trd);
-		printf("[%d ms] philo [%d] has taken right fork \n", time_ms, trd->nbr_philo);
+		printf("[%d ms] philo [%d] has taken right fork \n", get_time_consumed(trd), trd->nbr_philo);
 		pthread_mutex_lock(&trd->tprm->fork[trd->l_fork]);
-		printf("[%d ms] philo [%d] has taken left fork \n", time_ms, trd->nbr_philo);
-		printf("[%d ms] philo [%d] is eating \n", time_ms, trd->nbr_philo);
-		gettimeofday(&trd->tprm->tv, NULL);
-		trd->start_tm = trd->tprm->tv.tv_usec;
-		usleep(trd->tprm->t_eat * 1000);
-		gettimeofday(&trd->tprm->tv, NULL);
-		trd->end_tm = trd->tprm->tv.tv_usec;
-		get_working_time(trd->start_tm, trd->end_tm);
+		printf("[%d ms] philo [%d] has taken left fork \n", get_time_consumed(trd), trd->nbr_philo);
+		printf("[%d ms] philo [%d] is eating \n", get_time_consumed(trd), trd->nbr_philo);
+		trd->end_tm = get_now_time_on_ms(trd->tprm->tv);
+		ft_sleep(trd->tprm, trd->tprm->t_eat);
 		pthread_mutex_unlock(&trd->tprm->fork[trd->r_fork]);
 		pthread_mutex_unlock(&trd->tprm->fork[trd->l_fork]);
-		printf("[%d ms] philo [%d] is sleeping \n", get_working_time(trd->start_tm, trd->end_tm)/ 1000, trd->nbr_philo);
+		printf("[%d ms] philo [%d] is sleeping \n", get_time_consumed(trd), trd->nbr_philo);
 		usleep(trd->tprm->t_sleep * 1000);
 		
 	}

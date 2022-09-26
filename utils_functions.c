@@ -40,3 +40,11 @@ int	ft_atoi(const char *str)
 	}
 	return (rest * signe);
 }
+
+void	ft_sleep(t_param *tprm, int t_sleep)
+{
+	int i;
+	i = get_now_time_on_ms(tprm->tv);
+	while (!tprm->end_programme && (get_now_time_on_ms(tprm->tv) - tprm->i < t_sleep))
+		usleep(50);
+}

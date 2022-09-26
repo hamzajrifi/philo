@@ -47,8 +47,10 @@ typedef struct s_param
 	int				t_sleep;
 	int				i;
 	int				tm_now;
+	int				end_programme;
 	int				start_time;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	print;
 	t_philo			*db_philo;
 } t_param;
 
@@ -58,11 +60,11 @@ void	*philo(void  *arg);
 //=============  checker.c ===========================
 int		check_arg(char **arg, t_param *stc);
 void	insialise_forks(t_param *ph_stc);
-int		get_now_time_on_ms(t_philo *trd);
-int		get_working_time(int start, int end);
-
+int		get_now_time_on_ms(struct timeval tv);
+int		get_time_consumed(t_philo *trd);
 
 //=============  utils_function.c ===========================
 int     ft_atoi(const char *str);
+void	ft_sleep(t_param *tprm, int t_sleep);
 
 #endif

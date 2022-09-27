@@ -12,41 +12,39 @@
 
 #include "philo.h"
 
-void	my_print()
+void	my_print(t_philo *ph, char *str)
 {
-
+	pthread_mutex_lock(&ph->tprm->print);
+	if (!(ph->tprm->end_programme))
+		printf("[%d ms] philo [%d] %s\n", get_time_consumed(ph), ph->nbr_philo, str);
+	pthread_mutex_unlock(&ph->tprm->print);
 }
 
 void	*philo(void *arg)
 {
 	t_philo	*trd;
-	int		n_philo;
-	int		time_ms;
+	t_param	*tprm;
 
 	trd = (t_philo *)arg;
-	
+	tprm = trd->tprm;
 	while (1337)
 	{
 		
-		pthread_mutex_lock(&trd->tprm->fork[trd->r_fork]);
-		printf("[%d ms] philo [%d] has taken right fork \n", get_time_consumed(trd), trd->nbr_philo);
-		pthread_mutex_lock(&trd->tprm->fork[trd->l_fork]);
-		printf("[%d ms] philo [%d] has taken left fork \n", get_time_consumed(trd), trd->nbr_philo);
-		trd->end_tm = get_now_time_on_ms(trd->tprm->tv);
-		printf("[%d ms] philo [%d] is eating \n", get_time_consumed(trd), trd->nbr_philo);
-		ft_sleep(trd->tprm, trd->tprm->t_eat);// time to eating
-		// usleep(trd->tprm->t_eat * 1000);
-		printf("[%d ms] philo [%d] is sleeping \n", get_time_consumed(trd), trd->nbr_philo);
-		pthread_mutex_lock(&trd->tprm->lock);
-		trd->end_tm = get_now_time_on_ms(trd->tprm->tv);
-		pthread_mutex_unlock(&trd->tprm->lock);
-		
-		pthread_mutex_unlock(&trd->tprm->fork[trd->l_fork]);
-		pthread_mutex_unlock(&trd->tprm->fork[trd->r_fork]);
-		// usleep(trd->tprm->t_sleep * 1000);
-		ft_sleep(trd->tprm, trd->tprm->t_sleep);// time to sleep
-		printf("[%d ms] philo [%d] is thinking \n", get_time_consumed(trd), trd->nbr_philo);
-		
+		pthread_mutex_lock(&tprm->fork[trd->r_fork]);
+		my_print(trd, "has taken right fork");
+		pthread_mutex_lock(&tprm->fork[trd->l_fork]);
+		my_print(trd, "has taken left fork");
+		pthread_mutex_lock(&tprm->lock);
+		my_print(trd, "is eating");
+		trd->end_tm = get_now_time_on_ms();
+		ft_sleep(tprm, tprm->t_eat);// time to eating
+		my_print(trd, "is sleeping");
+		trd->end_tm = get_now_time_on_ms();
+		pthread_mutex_unlock(&tprm->lock);
+		pthread_mutex_unlock(&tprm->fork[trd->l_fork]);
+		pthread_mutex_unlock(&tprm->fork[trd->r_fork]);
+		ft_sleep(tprm, tprm->t_sleep);// time to sleep
+		my_print(trd, "is thinking");
 
 	}
 	return (NULL);

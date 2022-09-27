@@ -12,8 +12,10 @@
 
 #include "philo.h"
 
-int		get_now_time_on_ms(struct timeval tv)
+int		get_now_time_on_ms(void)
 {
+	struct timeval tv;
+
 	gettimeofday(&tv, NULL);
 	return(tv.tv_sec * 1000 + tv.tv_usec / 1000 );
 }
@@ -32,6 +34,7 @@ void	insialise_forks(t_param *ph_stc)
 	i = 0;
 	ph_stc->fork = malloc(sizeof(pthread_mutex_t) * ph_stc->all_nbr_philo);
 	pthread_mutex_init(&ph_stc->lock, NULL);
+	pthread_mutex_init(&ph_stc->print, NULL);
 	ph_stc->end_programme = 0;
 	while (i < ph_stc->all_nbr_philo)
 	{
@@ -40,7 +43,7 @@ void	insialise_forks(t_param *ph_stc)
 		ph_stc->db_philo[i].l_fork = ((i + 1) % ph_stc->all_nbr_philo);
 		i++;
 	}
-	ph_stc->start_time = get_now_time_on_ms(ph_stc->tv);
+	ph_stc->start_time = get_now_time_on_ms();
 }
 
 int check_arg(char **arg, t_param *stc)

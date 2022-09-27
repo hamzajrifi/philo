@@ -45,9 +45,7 @@ void	ft_sleep(t_param *tprm, int t_sleep)
 {
 	int i;
 	
-	i = get_now_time_on_ms(tprm->tv);
-	while (!tprm->end_programme && (get_now_time_on_ms(tprm->tv) - i <= t_sleep))
-	{
+	i = get_now_time_on_ms();
+	while (!(tprm->end_programme) && (get_now_time_on_ms() - i <= t_sleep))
 		usleep(5);
-	}
 }

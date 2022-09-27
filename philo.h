@@ -37,6 +37,9 @@ typedef struct s_philo
 typedef struct s_param
 {
 	struct timeval	tv;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	print;
+	pthread_mutex_t	lock;
 	int				all_nbr_philo;
 	int				nbr_mutex;
 	int				nbr_fork;
@@ -49,9 +52,6 @@ typedef struct s_param
 	int				tm_now;
 	int				end_programme;
 	int				start_time;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	print;
-	pthread_mutex_t	lock;
 	t_philo			*db_philo;
 } t_param;
 
@@ -61,7 +61,7 @@ void	*philo(void  *arg);
 //=============  checker.c ===========================
 int		check_arg(char **arg, t_param *stc);
 void	insialise_forks(t_param *ph_stc);
-int		get_now_time_on_ms(struct timeval tv);
+int		get_now_time_on_ms(void);
 int		get_time_consumed(t_philo *trd);
 
 //=============  utils_function.c ===========================

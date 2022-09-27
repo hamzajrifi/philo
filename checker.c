@@ -6,13 +6,13 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:13:58 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/26 16:34:14 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/27 22:42:22 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		get_now_time_on_ms(void)
+unsigned int	get_now_time_on_ms(void)
 {
 	struct timeval tv;
 
@@ -22,8 +22,10 @@ int		get_now_time_on_ms(void)
 
 int		get_time_consumed(t_philo *trd)
 {
-	gettimeofday(&trd->tprm->tv, NULL);
-	return (trd->tprm->tv.tv_sec * 1000 + trd->tprm->tv.tv_usec / 1000 - trd->tprm->start_time);
+	struct timeval tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000 - trd->tprm->start_time);
 }
 
 
@@ -39,6 +41,7 @@ void	insialise_forks(t_param *ph_stc)
 	while (i < ph_stc->all_nbr_philo)
 	{
 		pthread_mutex_init(&ph_stc->fork[i], NULL);
+		ph_stc->db_philo[i].nbr_meal_eat = -1;
 		ph_stc->db_philo[i].r_fork = i;
 		ph_stc->db_philo[i].l_fork = ((i + 1) % ph_stc->all_nbr_philo);
 		i++;
@@ -52,6 +55,7 @@ int check_arg(char **arg, t_param *stc)
 	int	nbr;
 
 	i = 1;
+	stc->nbr_db_eat = 0;
 	while (arg[i])
 	{
 		nbr = ft_atoi(arg[i]);

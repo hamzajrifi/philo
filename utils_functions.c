@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:48 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/26 21:54:03 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/27 23:38:51 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void	ft_sleep(t_param *tprm, int t_sleep)
 	int i;
 	
 	i = get_now_time_on_ms();
-	while (!(tprm->end_programme) && (get_now_time_on_ms() - i <= t_sleep))
+	while  (get_now_time_on_ms() - i <= t_sleep)
+	{
+		if (tprm->end_programme)
+			break;
 		usleep(5);
+	}
 }

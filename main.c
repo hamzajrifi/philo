@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:07 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/26 21:59:48 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/27 23:45:32 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,23 @@
 void	philo_checker(t_param *trd)
 {
 	int	i;
-
+	
 	while (!trd->end_programme)
 	{
 		i = 0;
 		while (i < trd->all_nbr_philo && !trd->end_programme)
 		{
 			pthread_mutex_lock(&trd->lock);
-
-			if (get_now_time_on_ms() - trd->db_philo[i].end_tm > trd->t_die)
-			{
-				trd->end_programme = 1;
-				printf("[%d ms] philo [%d] died \n", get_time_consumed(&trd->db_philo[i]), trd->db_philo[i].nbr_philo);
-				break;
-			}
-			i++;
+				if (get_now_time_on_ms() - trd->db_philo[i].end_tm > trd->t_die)
+				{
+					my_print(&trd->db_philo[i], "died");
+					// printf("[%d ms] philo [%d] is died\n", get_time_consumed(&trd->db_philo[i]), trd->db_philo[i].nbr_philo + 1);
+					trd->end_programme = 1;
+				
+				}
+				i++;
 			pthread_mutex_unlock(&trd->lock);
-
 		}
-		
 	}
 }
 
@@ -51,20 +49,20 @@ void	creat_philo_threads(t_param *trd)
 	{
 		trd->db_philo[i].nbr_philo = i;
 		trd->db_philo[i].tprm = trd;
-		trd->db_philo[i].index= 0;
-		trd->db_philo[i].end_tm = get_now_time_on_ms();// 0 // 1
-		pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]);
+		if (pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]))
+			return ;
+		trd->db_philo[i].end_tm = get_now_time_on_ms();
 		usleep(50);
 		i++;
 	}
 	philo_checker(trd);
 	i = 0;
 	
-	// while (n_philo > i)
-	// {
-		// pthread_join(trd->db_philo[i].t_thread, NULL);
-		// i++;
-	// }
+	while (n_philo > i)
+	{
+		pthread_join(trd->db_philo[i].t_thread, NULL);
+		i++;
+	}
 }
 
 int main(int ac, char **arg)

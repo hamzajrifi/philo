@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:07 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/28 23:43:24 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 23:51:59 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,35 @@
 void	philo_checker(t_param *trd)
 {
 	int	i;
-	
+
 	while (1337)
 	{
 		i = 0;
-		while (i < trd->all_nbr_philo )
+		while (i < trd->all_nbr_philo)
 		{
 			pthread_mutex_lock(&trd->lock);
 			if (get_now_time_on_ms() - trd->db_philo[i].end_tm > trd->t_die)
 			{
 				pthread_mutex_lock(&trd->print);
-				printf("[%d ms] philo [%d] died\n", get_time_consumed(&trd->db_philo[i]), trd->db_philo[i].nbr_philo + 1);
+				printf("[%d ms] philo [%d] died\n", get_time_consumed(
+						&trd->db_philo[i]), trd->db_philo[i].nbr_philo + 1);
 				trd->end_programme = 1;
 				pthread_mutex_unlock(&trd->lock);
 				pthread_mutex_unlock(&trd->print);
-				return;
+				return ;
 			}
 			i++;
 			pthread_mutex_unlock(&trd->lock);
 		}
 		i = 0;
 		pthread_mutex_lock(&trd->lock);
-		while (i < trd->all_nbr_philo && trd->db_philo[i].nbr_meal_eat == trd->nbr_meals )
+		while (i < trd->all_nbr_philo && trd->db_philo[i].nbr_meal_eat
+			== trd->nbr_meals)
 			i++;
-		if(trd->nbr_meals && i == trd->all_nbr_philo)
+		if (trd->nbr_meals && i == trd->all_nbr_philo)
 		{
 			pthread_mutex_unlock(&trd->lock);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&trd->lock);
 	}
@@ -62,7 +64,8 @@ void	creat_philo_threads(t_param *trd)
 		trd->db_philo[i].nbr_philo = i;
 		trd->db_philo[i].tprm = trd;
 		trd->db_philo[i].end_tm = get_now_time_on_ms();
-		if (pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]))
+		if (pthread_create(&trd->db_philo[i].t_thread, NULL,
+				philo, &trd->db_philo[i]))
 			return ;
 		usleep(50);
 		i++;
@@ -76,11 +79,11 @@ void	creat_philo_threads(t_param *trd)
 	}
 }
 
-int main(int ac, char **arg)
+int	main(int ac, char **arg)
 {
-	t_param stc;
+	t_param	stc;
 
-	if (ac < 5 || ac > 6 || check_arg(arg, &stc))	
+	if (ac < 5 || ac > 6 || check_arg(arg, &stc))
 		printf("Error\n");
 	else
 		creat_philo_threads(&stc);

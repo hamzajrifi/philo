@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:48 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/28 23:44:05 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 23:59:32 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	ft_atoi(const char *str)
 
 void	ft_sleep(t_philo *trd, int t_sleep)
 {
-	int i;
-	
+	int	i;
+
 	i = get_now_time_on_ms();
-	while  (get_now_time_on_ms() - i <= t_sleep)
+	while (get_now_time_on_ms() - i <= t_sleep)
 		usleep(5);
 }

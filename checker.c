@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:13:58 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/28 22:13:04 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 23:47:10 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 unsigned int	get_now_time_on_ms(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return(tv.tv_sec * 1000 + tv.tv_usec / 1000 );
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-int		get_time_consumed(t_philo *trd)
+int	get_time_consumed(t_philo *trd)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000 - trd->tprm->start_time);
 }
-
 
 void	insialise_forks(t_param *ph_stc)
 {
@@ -38,7 +37,7 @@ void	insialise_forks(t_param *ph_stc)
 	pthread_mutex_init(&ph_stc->lock, NULL);
 	pthread_mutex_init(&ph_stc->print, NULL);
 	ph_stc->end_programme = 0;
-	ph_stc->x_meals= 0;
+	ph_stc->x_meals = 0;
 	while (i < ph_stc->all_nbr_philo)
 	{
 		pthread_mutex_init(&ph_stc->fork[i], NULL);
@@ -50,7 +49,7 @@ void	insialise_forks(t_param *ph_stc)
 	ph_stc->start_time = get_now_time_on_ms();
 }
 
-int check_arg(char **arg, t_param *stc)
+int	check_arg(char **arg, t_param *stc)
 {
 	int	i;
 	int	nbr;

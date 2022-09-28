@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:48 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/27 23:38:51 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 20:29:12 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ int	ft_atoi(const char *str)
 	return (rest * signe);
 }
 
-void	ft_sleep(t_param *tprm, int t_sleep)
+void	ft_sleep(t_philo *trd, int t_sleep)
 {
 	int i;
 	
 	i = get_now_time_on_ms();
 	while  (get_now_time_on_ms() - i <= t_sleep)
 	{
-		if (tprm->end_programme)
-			break;
+		// if (trd->tprm->end_programme)
+			// break;
 		usleep(5);
 	}
 }

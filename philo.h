@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:30 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/28 17:56:55 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 22:12:58 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int				get_time_consumed(t_philo *trd);
 
 //=============  utils_function.c ===========================
 int     ft_atoi(const char *str);
-void	ft_sleep(t_param *tprm, int t_sleep);
+void	ft_sleep(t_philo *trd, int t_sleep);
 
 #endif

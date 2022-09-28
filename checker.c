@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:13:58 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/27 22:42:22 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 18:33:11 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ void	insialise_forks(t_param *ph_stc)
 	pthread_mutex_init(&ph_stc->lock, NULL);
 	pthread_mutex_init(&ph_stc->print, NULL);
 	ph_stc->end_programme = 0;
+	ph_stc->x_meals= 0;
 	while (i < ph_stc->all_nbr_philo)
 	{
 		pthread_mutex_init(&ph_stc->fork[i], NULL);
-		ph_stc->db_philo[i].nbr_meal_eat = -1;
+		ph_stc->db_philo[i].nbr_meal_eat = 0;
 		ph_stc->db_philo[i].r_fork = i;
 		ph_stc->db_philo[i].l_fork = ((i + 1) % ph_stc->all_nbr_philo);
 		i++;
@@ -55,11 +56,11 @@ int check_arg(char **arg, t_param *stc)
 	int	nbr;
 
 	i = 1;
-	stc->nbr_db_eat = 0;
+	stc->nbr_meals = 0;
 	while (arg[i])
 	{
 		nbr = ft_atoi(arg[i]);
-		if (nbr < 0)
+		if (nbr <= 0)
 			return (1);
 		if (i == 1)
 		{
@@ -74,7 +75,7 @@ int check_arg(char **arg, t_param *stc)
 		else if (i == 4)
 			stc->t_sleep = nbr;
 		else if (i == 5)
-			stc->nbr_db_eat = nbr;
+			stc->nbr_meals = nbr;
 		i++;
 	}
 	return (0);

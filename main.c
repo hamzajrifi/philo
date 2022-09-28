@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:07 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/27 23:45:32 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 18:29:37 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ void	philo_checker(t_param *trd)
 				i++;
 			pthread_mutex_unlock(&trd->lock);
 		}
+		i = 0;
+			
+			while (i < trd->all_nbr_philo && trd->db_philo[i].nbr_meal_eat == trd->nbr_meals )
+				i++;
+				// printf("-   ------------- - - - - - - - - - - - end -    [%d]   ------------- - - - - - - - - - - - \n", i);
+			if(i == trd->all_nbr_philo)
+			{
+				trd->end_programme = 1;
+				// break;
+			}
+
 	}
 }
 
@@ -58,7 +69,7 @@ void	creat_philo_threads(t_param *trd)
 	philo_checker(trd);
 	i = 0;
 	
-	while (n_philo > i)
+	while (trd->all_nbr_philo > 1 && n_philo > i)
 	{
 		pthread_join(trd->db_philo[i].t_thread, NULL);
 		i++;

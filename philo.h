@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:30 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/27 21:53:49 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 17:56:55 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_param
 	int				nbr_fork;
 	int				nbr_db_eat;
 	int				nbr_meals;
+	int				x_meals;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;

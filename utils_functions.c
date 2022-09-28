@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:48 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/28 20:29:12 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 23:44:05 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,5 @@ void	ft_sleep(t_philo *trd, int t_sleep)
 	
 	i = get_now_time_on_ms();
 	while  (get_now_time_on_ms() - i <= t_sleep)
-	{
-		// if (trd->tprm->end_programme)
-			// break;
 		usleep(5);
-	}
 }

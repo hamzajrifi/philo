@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:14:07 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/28 22:40:36 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 23:43:24 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,28 @@ void	philo_checker(t_param *trd)
 		while (i < trd->all_nbr_philo )
 		{
 			pthread_mutex_lock(&trd->lock);
-				if (get_now_time_on_ms() - trd->db_philo[i].end_tm > trd->t_die)
-				{
-					pthread_mutex_lock(&trd->print);
-
-					printf("[%d ms] philo [%d] died\n", get_time_consumed(&trd->db_philo[i]), trd->db_philo[i].nbr_philo + 1);
-					trd->end_programme = 1;
-					pthread_mutex_unlock(&trd->lock);
-					pthread_mutex_unlock(&trd->print);
-
-					return;
-				}
-				i++;
+			if (get_now_time_on_ms() - trd->db_philo[i].end_tm > trd->t_die)
+			{
+				pthread_mutex_lock(&trd->print);
+				printf("[%d ms] philo [%d] died\n", get_time_consumed(&trd->db_philo[i]), trd->db_philo[i].nbr_philo + 1);
+				trd->end_programme = 1;
+				pthread_mutex_unlock(&trd->lock);
+				pthread_mutex_unlock(&trd->print);
+				return;
+			}
+			i++;
 			pthread_mutex_unlock(&trd->lock);
 		}
 		i = 0;
-			pthread_mutex_lock(&trd->lock);
-			
-			while (i < trd->all_nbr_philo && trd->db_philo[i].nbr_meal_eat == trd->nbr_meals )
-				i++;
-			if(trd->nbr_meals && i == trd->all_nbr_philo)
-			{
-				trd->end_programme = 1;
-				pthread_mutex_unlock(&trd->lock);
-				break;
-			}
+		pthread_mutex_lock(&trd->lock);
+		while (i < trd->all_nbr_philo && trd->db_philo[i].nbr_meal_eat == trd->nbr_meals )
+			i++;
+		if(trd->nbr_meals && i == trd->all_nbr_philo)
+		{
 			pthread_mutex_unlock(&trd->lock);
-
+			break;
+		}
+		pthread_mutex_unlock(&trd->lock);
 	}
 }
 
@@ -69,16 +64,11 @@ void	creat_philo_threads(t_param *trd)
 		trd->db_philo[i].end_tm = get_now_time_on_ms();
 		if (pthread_create(&trd->db_philo[i].t_thread, NULL, philo, &trd->db_philo[i]))
 			return ;
-		// pthread_mutex_unlock(&trd->lock);
-// 
-		// pthread_mutex_unlock(&trd->lock);
-		
 		usleep(50);
 		i++;
 	}
 	philo_checker(trd);
 	i = 0;
-	
 	while (trd->all_nbr_philo > 1 && n_philo > i)
 	{
 		pthread_join(trd->db_philo[i].t_thread, NULL);

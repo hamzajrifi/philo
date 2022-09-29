@@ -43,10 +43,9 @@ typedef struct s_param
 	int				all_nbr_philo;
 	int				nbr_mutex;
 	int				nbr_fork;
-	int				nbr_db_eat;
 	int				nbr_meals;
 	int				x_meals;
-	int				t_die;
+	unsigned int	t_die;
 	int				t_eat;
 	int				t_sleep;
 	int				i;
@@ -68,6 +67,6 @@ unsigned int	get_now_time_on_ms(void);
 
 //=============  utils_function.c ===========================
 int				ft_atoi(const char *str);
-void			ft_sleep(t_philo *trd, int t_sleep);
+void			ft_sleep(t_philo *trd, unsigned int t_sleep);
 
 #endif

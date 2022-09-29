@@ -43,8 +43,9 @@ void	philo_checker(t_param *trd)
 			if (get_now_time_on_ms() - trd->db_philo[i].end_tm > trd->t_die)
 			{
 				pthread_mutex_lock(&trd->print);
-				printf("[%d ms] philo [%d] died\n", get_time_consumed(
-						&trd->db_philo[i]), trd->db_philo[i].nbr_philo + 1);
+				printf("[%d ms] philo [%d] died\n",
+					get_now_time_on_ms() - trd->db_philo[i].end_tm,
+					trd->db_philo[i].nbr_philo + 1);
 				trd->end_programme = 1;
 				pthread_mutex_unlock(&trd->lock);
 				pthread_mutex_unlock(&trd->print);
@@ -81,7 +82,7 @@ void	creat_philo_threads(t_param *trd)
 	}
 	philo_checker(trd);
 	i = -1;
-	while (trd->all_nbr_philo > 1 && n_philo > ++i && !(trd->end_programme))
+	while (trd->all_nbr_philo > 1 && n_philo > ++i)
 		pthread_join(trd->db_philo[i].t_thread, NULL);
 }
 

@@ -16,7 +16,7 @@ void	my_print(t_philo *ph, char *str)
 {
 	pthread_mutex_lock(&ph->tprm->print);
 	if (!(ph->tprm->end_programme))
-		printf("[%d ms] philo [%d] %s\n", get_time_consumed(ph),
+		printf("[%d ms] philo [%d] %s\n", get_now_time_on_ms() - ph->end_tm,
 			ph->nbr_philo + 1, str);
 	pthread_mutex_unlock(&ph->tprm->print);
 }

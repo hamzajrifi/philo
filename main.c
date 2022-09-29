@@ -81,7 +81,7 @@ void	creat_philo_threads(t_param *trd)
 	}
 	philo_checker(trd);
 	i = -1;
-	while (trd->all_nbr_philo > 1 && n_philo > ++i)
+	while (trd->all_nbr_philo > 1 && n_philo > ++i && !(trd->end_programme))
 		pthread_join(trd->db_philo[i].t_thread, NULL);
 }
 

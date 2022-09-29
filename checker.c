@@ -6,7 +6,7 @@
 /*   By: hjrifi <hjrifi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:13:58 by hjrifi            #+#    #+#             */
-/*   Updated: 2022/09/28 23:47:10 by hjrifi           ###   ########.fr       */
+/*   Updated: 2022/09/28 22:13:04 by hjrifi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,27 @@ void	insialise_forks(t_param *ph_stc)
 int	check_arg(char **arg, t_param *stc)
 {
 	int	i;
-	int	nbr;
 
 	i = 1;
 	stc->nbr_meals = 0;
 	while (arg[i])
 	{
-		nbr = ft_atoi(arg[i]);
-		if (nbr <= 0)
+		if (ft_atoi(arg[i]) <= 0)
 			return (1);
 		if (i == 1)
 		{
-			stc->all_nbr_philo = nbr;
-			stc->nbr_mutex = nbr;
-			stc->nbr_fork = nbr;
+			stc->all_nbr_philo = ft_atoi(arg[i]);
+			stc->nbr_mutex = ft_atoi(arg[i]);
+			stc->nbr_fork = ft_atoi(arg[i]);
 		}
 		else if (i == 2)
-			stc->t_die = nbr;
+			stc->t_die = ft_atoi(arg[i]);
 		else if (i == 3)
-			stc->t_eat = nbr;
+			stc->t_eat = ft_atoi(arg[i]);
 		else if (i == 4)
-			stc->t_sleep = nbr;
+			stc->t_sleep = ft_atoi(arg[i]);
 		else if (i == 5)
-			stc->nbr_meals = nbr;
+			stc->nbr_meals = ft_atoi(arg[i]);
 		i++;
 	}
 	return (0);

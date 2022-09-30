@@ -1,6 +1,6 @@
 NAME = prg.a
 
-CC = gcc  -fsanitize=address -g3
+CC = gcc # -fsanitize=address -g3
 
 FLAG = -Wall -Wextra -Werror
 

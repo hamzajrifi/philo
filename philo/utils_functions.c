@@ -48,5 +48,5 @@ void	ft_sleep(t_philo *trd, unsigned int t_sleep)
 	i = get_now_time_on_ms();
 	while (get_now_time_on_ms() - i < t_sleep && get_now_time_on_ms()
 		- trd->end_tm < trd->tprm->t_die)
-		usleep(60);
+		usleep(50);
 }

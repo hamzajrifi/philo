@@ -54,7 +54,7 @@ void	philo_checker(t_param *trd)
 			i++;
 			pthread_mutex_unlock(&trd->lock);
 		}
-		if (trd->nbr_meals && check_if_end(trd))
+		if (check_if_end(trd))
 			break ;
 	}
 }
@@ -77,13 +77,13 @@ void	creat_philo_threads(t_param *trd)
 		if (pthread_create(&trd->db_philo[i].t_thread, NULL,
 				philo, &trd->db_philo[i]))
 			return ;
-		usleep(50);
+		usleep(100);
 		i++;
 	}
 	philo_checker(trd);
 	i = -1;
-	// while (trd->all_nbr_philo > 1 && n_philo > ++i)
-		// pthread_join(trd->db_philo[i].t_thread, NULL);
+	while (trd->all_nbr_philo > 1 && n_philo > ++i)
+		pthread_join(trd->db_philo[i].t_thread, NULL);
 }
 
 int	main(int ac, char **arg)

@@ -1,11 +1,10 @@
 NAME = prg.a
 
-CC = gcc # -fsanitize=address -g3
+CC = gcc   -fsanitize=thread -g3
 
-FLAG = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 HEADER = philo.h
-
 
 C_FILES = philo.c\
 	  checker.c\
@@ -17,7 +16,7 @@ all : $(NAME)
 
 $(NAME) : $(HEADER) $(OBJ) main.c
 			ar -rc $(NAME) $(OBJ)
-			$(CC) $(FLAG)  $(NAME) main.c -o philo
+			$(CC) $(CFLAGS)  $(NAME) main.c -o philo
 clean :
 	rm -f *.o 
 

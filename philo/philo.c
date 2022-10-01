@@ -53,12 +53,12 @@ void	*philo(void *arg)
 		trd->end_tm = get_now_time_on_ms();
 		(trd->nbr_meal_eat)++;
 		pthread_mutex_unlock(&trd->tprm->lock);
-		ft_sleep(trd, trd->tprm->t_eat);
-		my_print(trd, "is sleeping");
+		if (!(ft_sleep(trd, trd->tprm->t_eat)))
+			my_print(trd, "is sleeping");
 		pthread_mutex_unlock(&trd->tprm->fork[trd->l_fork]);
 		pthread_mutex_unlock(&trd->tprm->fork[trd->r_fork]);
-		ft_sleep(trd, trd->tprm->t_sleep);
-		my_print(trd, "is thinking");
+		if (!(ft_sleep(trd, trd->tprm->t_sleep)))
+			my_print(trd, "is thinking");
 	}
 	return (NULL);
 }

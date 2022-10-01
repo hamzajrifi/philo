@@ -41,12 +41,16 @@ int	ft_atoi(const char *str)
 	return (rest * signe);
 }
 
-void	ft_sleep(t_philo *trd, unsigned int t_sleep)
+int	ft_sleep(t_philo *trd, unsigned int t_sleep)
 {
 	unsigned int	i;
 
 	i = get_now_time_on_ms();
-	while (get_now_time_on_ms() - i < t_sleep && get_now_time_on_ms()
-		- trd->end_tm < trd->tprm->t_die)
+	while (get_now_time_on_ms() - i < t_sleep)
+	{
+		if ((get_now_time_on_ms() - trd->end_tm) >= trd->tprm->t_die)
+			return (1);
 		usleep(50);
+	}
+	return (0);
 }

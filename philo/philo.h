@@ -67,6 +67,6 @@ unsigned int	get_now_time_on_ms(void);
 
 //=============  utils_function.c ===========================
 int				ft_atoi(const char *str);
-void			ft_sleep(t_philo *trd, unsigned int t_sleep);
+int				ft_sleep(t_philo *trd, unsigned int t_sleep);
 
 #endif

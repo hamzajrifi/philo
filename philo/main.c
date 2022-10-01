@@ -91,7 +91,7 @@ int	main(int ac, char **arg)
 	t_param	stc;
 
 	if (ac < 5 || ac > 6 || check_arg(arg, &stc))
-		printf("Error\n");
+		return (1);
 	else
 		creat_philo_threads(&stc);
 	return (0);
